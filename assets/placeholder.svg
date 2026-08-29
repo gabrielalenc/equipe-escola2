@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient: subtle slate to light grey -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4f4f5" />
+      <stop offset="100%" stop-color="#e4e4e7" />
+    </linearGradient>
+    
+    <!-- Accent Gradient: modern orange shade -->
+    <linearGradient id="orangeGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#ff782e" />
+    </linearGradient>
+    
+    <clipPath id="avatarClip">
+      <rect x="0" y="0" width="300" height="400" rx="16" />
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <!-- Abstract Architectural Shapes (School Concept) -->
+  <path d="M-50 450 L150 250 L350 450 Z" fill="#eaeaea" opacity="0.6" />
+  <path d="M100 450 L250 300 L400 450 Z" fill="#e2e2e5" opacity="0.8" />
+  
+  <!-- Subtle Orange Decorative Brand Line -->
+  <line x1="40" y1="360" x2="260" y2="360" stroke="url(#orangeGrad)" stroke-width="3" stroke-linecap="round" opacity="0.3" />
+
+  <!-- Avatar Silhouette Group -->
+  <g transform="translate(0, 10)">
+    <!-- Head -->
+    <circle cx="150" cy="150" r="48" fill="#d4d4d8" />
+    <!-- Shoulders / Body -->
+    <path d="M60 310 C60 250, 100 220, 150 220 C200 220, 240 250, 240 310 C240 325, 230 330, 150 330 C70 330, 60 325, 60 310 Z" fill="#c4c4c7" />
+    
+    <!-- Small School Accent Emblem on silhouette chest -->
+    <path d="M142 245 L158 245 L155 260 L150 265 L145 260 Z" fill="url(#orangeGrad)" opacity="0.8" />
+  </g>
+
+  <!-- School Badge Icon in the corner (Subtle) -->
+  <circle cx="260" cy="40" r="15" fill="#ffffff" opacity="0.7" />
+  <path d="M255 35 L260 31 L265 35 L265 42 L260 46 L255 42 Z" fill="#a1a1aa" />
+  <polygon points="260,33 263,35 260,37 257,35" fill="url(#orangeGrad)" />
+</svg>
