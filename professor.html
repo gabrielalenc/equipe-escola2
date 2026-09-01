@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Equipe de Gestão | Escola Modelo</title>
+  <title>Corpo Docente | Escola Modelo</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Conheça a equipe diretiva e coordenação da Escola Modelo. Profissionais qualificados e dedicados.">
-  <meta name="keywords" content="diretoria, gestao escolar, equipe diretiva, coordenação pedagógica, escola modelo">
+  <meta name="description" content="Conheça os 32 professores e educadores da Escola Modelo organizados por turnos de aula. Profissionais qualificados e dedicados.">
+  <meta name="keywords" content="professores, corpo docente, educadores, escola modelo, aulas, turnos">
   <meta name="author" content="Escola Modelo">
 
   <!-- Google Fonts -->
@@ -68,10 +68,10 @@
   <!-- Hero Section -->
   <section class="hero" id="hero-equipe" aria-labelledby="hero-title-id">
     <div class="hero-content" data-aos="fade-down">
-      <span class="hero-badge" id="hero-sub"><i class="fa-solid fa-user-tie"></i> Liderança Escolar</span>
-      <h1 class="hero-title" id="hero-title-id">Equipe de Gestão</h1>
+      <span class="hero-badge" id="hero-sub"><i class="fa-solid fa-chalkboard-user"></i> Corpodocente</span>
+      <h1 class="hero-title" id="hero-title-id">Nossos Professores</h1>
       <p class="hero-description" id="hero-desc">
-        Conheça os diretores, vice-diretores e coordenadores pedagógicos que orientam com excelência as diretrizes educacionais da Escola Modelo.
+        Conheça os nossos 32 educadores qualificados, divididos por turnos de aula, dedicados a transformar o aprendizado de nossos alunos.
       </p>
     </div>
   </section>
@@ -79,8 +79,8 @@
   <!-- Sub-navegação das Categorias da Equipe -->
   <nav class="team-nav" aria-label="Categorias da equipe">
     <ul class="team-nav-list">
-      <li><a href="equipe-gestao.html" class="team-nav-link active" id="team-link-gestao"><i class="fa-solid fa-user-tie"></i> Gestão</a></li>
-      <li><a href="professor.html" class="team-nav-link" id="team-link-professores"><i class="fa-solid fa-graduation-cap"></i> Professores</a></li>
+      <li><a href="equipe-gestao.html" class="team-nav-link" id="team-link-gestao"><i class="fa-solid fa-user-tie"></i> Gestão</a></li>
+      <li><a href="professor.html" class="team-nav-link active" id="team-link-professores"><i class="fa-solid fa-graduation-cap"></i> Professores</a></li>
       <li><a href="secretaria.html" class="team-nav-link" id="team-link-secretaria"><i class="fa-solid fa-folder-open"></i> Secretaria</a></li>
       <li><a href="auxiliares.html" class="team-nav-link" id="team-link-auxiliares"><i class="fa-solid fa-hands-holding-circle"></i> Auxiliares</a></li>
       <li><a href="equipe-site.html" class="team-nav-link" id="team-link-site"><i class="fa-solid fa-code"></i> Equipe do Site</a></li>
@@ -89,13 +89,28 @@
 
   <!-- Container Principal das Categorias de Equipe -->
   <main class="team-container" id="main-team-content">
-    <section class="category-section" id="gestao" aria-labelledby="title-gestao">
+    <section class="category-section" id="professores" aria-labelledby="title-professores">
+      
       <div class="category-header" data-aos="fade-right">
-        <h2 class="category-title" id="title-gestao"><span class="number-tag">01.</span> Liderança e Coordenação</h2>
+        <h2 class="category-title" id="title-professores"><span class="number-tag">02.</span> Quadro Docente por Turno</h2>
         <div class="category-line" aria-hidden="true"></div>
       </div>
-      <!-- Cards de Gestão injetados pelo JS com base no data-categoria -->
-      <div class="members-grid" id="grid-gestao" data-categoria="gestao"></div>
+
+      <!-- Navegação por Turnos ([ ☀️ Turno 1 ] [ 🌙 Turno 2 ]) -->
+      <div class="shift-toggle-wrapper" data-aos="fade-up">
+        <div class="shift-toggle-container" role="tablist" aria-label="Alternar turnos dos professores">
+          <button class="shift-btn active" data-turno="1" role="tab" aria-selected="true" id="btn-turno-1">
+            <i class="fa-solid fa-sun"></i> Turno 1 (Manhã)
+          </button>
+          <button class="shift-btn" data-turno="2" role="tab" aria-selected="false" id="btn-turno-2">
+            <i class="fa-solid fa-moon"></i> Turno 2 (Tarde)
+          </button>
+        </div>
+      </div>
+
+      <!-- Cards de Professores injetados pelo JS com base no data-categoria e turno -->
+      <div class="members-grid" id="grid-professores" data-categoria="professores"></div>
+
     </section>
   </main>
 
