@@ -645,7 +645,8 @@ function abrirModal(membro, btnElement) {
   };
 
   nameEl.textContent = membro.nome;
-  roleEl.textContent = membro.cargo;
+  const iconClass = getDisciplinaIcon(membro.cargo, membro.categoria);
+  roleEl.innerHTML = `<i class="${iconClass}"></i> ${membro.cargo}`;
   
   if (membro.categoria === "professores") {
     badgeEl.style.display = "inline-flex";
@@ -695,13 +696,60 @@ function fecharModal() {
 }
 
 /**
+ * Retorna a classe do ícone de marca d'água de fundo conforme o cargo ou função
+ */
+function getWatermarkIcon(membro) {
+  const cargo = (membro.cargo || "").toLowerCase();
+  const cat = (membro.categoria || "").toLowerCase();
+
+  if (cargo.includes("diretor geral")) return "fa-solid fa-school-flag";
+  if (cargo.includes("vice")) return "fa-solid fa-sitemap";
+  if (cargo.includes("cgpg") || cargo.includes("coordenador")) return "fa-solid fa-diagram-project";
+  
+  if (cat === "gestao") return "fa-solid fa-award";
+  if (cat === "secretaria") return "fa-solid fa-file-signature";
+  if (cat === "auxiliares") return "fa-solid fa-shield-halved";
+  if (cat === "desenvolvedores") return "fa-solid fa-code";
+
+  return getDisciplinaIcon(membro.cargo, membro.categoria);
+}
+
+/**
+ * Retorna a classe do ícone Font Awesome ideal para cada disciplina ou cargo de professor
+ */
+function getDisciplinaIcon(cargo, categoria) {
+  if (!cargo) return "fa-solid fa-graduation-cap";
+  const text = cargo.toLowerCase();
+
+  if (text.includes("matemática") || text.includes("matematica")) return "fa-solid fa-calculator";
+  if (text.includes("português") || text.includes("portugues") || text.includes("literatura") || text.includes("redação")) return "fa-solid fa-book-open-reader";
+  if (text.includes("história") || text.includes("historia")) return "fa-solid fa-landmark";
+  if (text.includes("geografia") || text.includes("cartografia")) return "fa-solid fa-globe";
+  if (text.includes("biologia") || text.includes("ecologia")) return "fa-solid fa-dna";
+  if (text.includes("física") || text.includes("fisica")) return "fa-solid fa-atom";
+  if (text.includes("química") || text.includes("quimica")) return "fa-solid fa-flask";
+  if (text.includes("ciências") || text.includes("ciencias")) return "fa-solid fa-microscope";
+  if (text.includes("educação física") || text.includes("ed. física") || text.includes("esporte")) return "fa-solid fa-person-running";
+  if (text.includes("artes") || text.includes("arte") || text.includes("música")) return "fa-solid fa-palette";
+  if (text.includes("inglês") || text.includes("ingles") || text.includes("espanhol") || text.includes("idioma")) return "fa-solid fa-language";
+  if (text.includes("tecnologia") || text.includes("robótica") || text.includes("computação") || text.includes("programação") || text.includes("site") || text.includes("web")) return "fa-solid fa-laptop-code";
+  if (text.includes("filosofia") || text.includes("sociologia")) return "fa-solid fa-brain";
+
+  if (categoria === "gestao") return "fa-solid fa-user-tie";
+  if (categoria === "secretaria") return "fa-solid fa-folder-open";
+  if (categoria === "auxiliares") return "fa-solid fa-hands-holding-circle";
+
+  return "fa-solid fa-graduation-cap";
+}
+
+/**
  * Cria a estrutura HTML de um card de membro de equipe
  * @param {Object} membro Dados do membro da equipe
  * @returns {HTMLElement} Elemento DOM do card
  */
 function criarCardMembro(membro) {
   const card = document.createElement("div");
-  card.className = "member-card";
+  card.className = `member-card card-cat-${membro.categoria}`;
   card.id = `card-${membro.id}`;
 
   // Atributos de animação do AOS se disponível
@@ -721,6 +769,9 @@ function criarCardMembro(membro) {
     }
   }
 
+  const iconClass = getDisciplinaIcon(membro.cargo, membro.categoria);
+  const watermarkClass = getWatermarkIcon(membro);
+
   card.innerHTML = `
     <div class="card-media-container">
       <img src="${caminhoImagem}" alt="Foto de ${membro.nome}" class="member-photo" style="object-position: ${posFoto};" loading="lazy">
@@ -731,8 +782,9 @@ function criarCardMembro(membro) {
     </div>
     
     <div class="card-collapsed-panel">
+      <div class="card-watermark-icon" aria-hidden="true"><i class="${watermarkClass}"></i></div>
       <h3 class="member-name">${membro.nome}</h3>
-      <div class="member-role"><i class="fa-solid fa-book-open"></i> ${membro.cargo}</div>
+      <div class="member-role"><i class="${iconClass}"></i> ${membro.cargo}</div>
       <p class="member-summary">${membro.resumo}</p>
     </div>
   `;
@@ -755,6 +807,52 @@ function criarCardMembro(membro) {
   });
 
   return card;
+}
+
+let termoPesquisa = "";
+
+/**
+ * Inicializa a funcionalidade de pesquisa visual de professores
+ */
+function inicializarPesquisa() {
+  const searchInput = document.getElementById("search-professores");
+  const clearBtn = document.getElementById("search-clear-btn");
+
+  if (!searchInput) return;
+
+  searchInput.addEventListener("input", (e) => {
+    termoPesquisa = e.target.value.trim().toLowerCase();
+    renderizarEquipe();
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      termoPesquisa = "";
+      renderizarEquipe();
+      searchInput.focus();
+    });
+  }
+}
+
+/**
+ * Gerencia o Light / Dark Mode e salva a preferência no localStorage
+ */
+function inicializarTema() {
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.body.setAttribute("data-theme", savedTheme);
+
+  function toggleTheme() {
+    const currentTheme = document.body.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.body.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  }
+
+  const toggleBtns = document.querySelectorAll("#theme-toggle-btn, .theme-toggle-btn, #mob-theme-toggle-btn");
+  toggleBtns.forEach(btn => {
+    btn.addEventListener("click", toggleTheme);
+  });
 }
 
 /**
@@ -786,9 +884,27 @@ function executarRenderizacao(grid, categoria) {
 
   let membrosFiltrados = equipeDados.filter(membro => membro.categoria === categoria);
 
-  // Se for a página de professores, filtra pelo turno selecionado
+  // Se for a página de professores, filtra pelo turno selecionado e termo de busca
   if (categoria === "professores") {
     membrosFiltrados = membrosFiltrados.filter(membro => membro.turno === turnoAtual);
+    if (termoPesquisa) {
+      membrosFiltrados = membrosFiltrados.filter(membro =>
+        membro.nome.toLowerCase().includes(termoPesquisa) ||
+        membro.cargo.toLowerCase().includes(termoPesquisa) ||
+        (membro.resumo && membro.resumo.toLowerCase().includes(termoPesquisa))
+      );
+    }
+  }
+
+  if (membrosFiltrados.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-search-state" data-aos="fade-up">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <h4>Nenhum professor encontrado</h4>
+        <p>Tente buscar por outro nome ou matéria pedagógica.</p>
+      </div>
+    `;
+    return;
   }
 
   membrosFiltrados.forEach(membro => {
@@ -824,6 +940,8 @@ function inicializarNavegacaoTurnos() {
 
 // Inicializa a renderização quando o DOM estiver pronto
 document.addEventListener("DOMContentLoaded", () => {
+  inicializarTema();
+  inicializarPesquisa();
   renderizarEquipe();
   inicializarNavegacaoTurnos();
   inicializarMenuMobile();

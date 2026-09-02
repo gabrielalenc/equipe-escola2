@@ -42,7 +42,13 @@
         <li><a href="#contato" id="link-contato"><i class="fa-solid fa-envelope"></i> Contato</a></li>
       </ul>
 
-      <a href="#contato" class="nav-cta" id="cta-fale-conosco"><i class="fa-solid fa-paper-plane"></i> Fale Conosco</a>
+      <div class="nav-actions-group">
+        <button class="theme-toggle-btn" id="theme-toggle-btn" title="Alternar tema claro e escuro" aria-label="Alternar tema claro e escuro">
+          <i class="fa-solid fa-moon icon-moon"></i>
+          <i class="fa-solid fa-sun icon-sun"></i>
+        </button>
+        <a href="#contato" class="nav-cta" id="cta-fale-conosco"><i class="fa-solid fa-paper-plane"></i> Fale Conosco</a>
+      </div>
 
       <!-- Botão Hambúrguer (Mobile/Tablet) -->
       <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobile-menu">
@@ -67,6 +73,15 @@
 
   <!-- Hero Section -->
   <section class="hero" id="hero-equipe" aria-labelledby="hero-title-id">
+    <div class="hero-shapes" aria-hidden="true">
+      <div class="shape shape-glow-1"></div>
+      <div class="shape shape-glow-2"></div>
+      <div class="shape shape-pattern"></div>
+      <div class="shape float-icon float-icon-1"><i class="fa-solid fa-calculator"></i></div>
+      <div class="shape float-icon float-icon-2"><i class="fa-solid fa-book"></i></div>
+      <div class="shape float-icon float-icon-3"><i class="fa-solid fa-atom"></i></div>
+      <div class="shape float-icon float-icon-4"><i class="fa-solid fa-globe"></i></div>
+    </div>
     <div class="hero-content" data-aos="fade-down">
       <span class="hero-badge" id="hero-sub"><i class="fa-solid fa-hands-holding-circle"></i> Suporte Operacional</span>
       <h1 class="hero-title" id="hero-title-id">Equipe Auxiliar</h1>
